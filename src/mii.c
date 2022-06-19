@@ -71,9 +71,9 @@ uint16_t shift_seed(uint16_t *seed)
 }
 
 // Generate a random Mii.
-mii_gen3_nx_t random_mii_gen3_nx(uint16_t seed)
+mii_gen3_nx_t random_mii_gen3_nx(uint16_t seed, bool dump, char *fn)
 {
-    printf("begin generating a random mii\n");
+    printf("libmiigen: begin generating a random mii\n");
     srand(seed);
     mii_gen3_nx_t mii;
     mii.hair_type = rand() % 131;
@@ -173,15 +173,17 @@ mii_gen3_nx_t random_mii_gen3_nx(uint16_t seed)
     strcpy(mii.mii_name, "Example");
     mii.checksum_mii[0] = gen_crc16(&mii, sizeof(mii_gen3_nx_t));
     mii.checksum_console[0] = gen_crc16(&mii, sizeof(mii_gen3_nx_t));
-    printf("done generating %x. dumping to file...\n", &mii);
-    FILE *f = fopen("mii.bin", "wb");
-    fwrite(&mii, sizeof(mii_gen3_nx_t), 1, f);
-    fclose(f);
-    printf("checking contents...\n");
-    FILE *f2 = fopen("mii.bin", "rb");
-    mii_gen3_nx_t test;
-    fread(&test, sizeof(mii_gen3_nx_t), 1, f2);
-    fclose(f2);
-    printf("%i and %i\n", mii.body_height, test.body_height);
+    printf("libmiigen: done generating mii%x.\n", &mii);
+    if(dump)
+    {
+        printf("libmiigen: dumping mii to %s...\n", fn);
+        FILE *f = fopen(fn, "wb");
+        fwrite(&mii, sizeof(mii_gen3_nx_t), 1, f);
+        fclose(f);
+    }
+    else
+    {
+        printf("libmiigen: skipping dump.\n");
+    }
     return mii;
 }
