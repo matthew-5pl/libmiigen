@@ -1,0 +1,5 @@
+/.vscode
+/*.exe
+/*.ms
+/*.bin
+/src/*.o
