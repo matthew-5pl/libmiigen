@@ -124,7 +124,7 @@ typedef struct
 } mii_gen3_nx_t;
 
 // Shift seed
-uint8_t shift_seed(uint16_t *seed);
+uint16_t shift_seed(uint16_t *seed);
 
 // Generate a random Mii
 mii_gen3_nx_t random_mii_gen3_nx(uint16_t seed);

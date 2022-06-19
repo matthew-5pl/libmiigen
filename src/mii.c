@@ -54,7 +54,7 @@ uint8_t gen_crc16(const uint8_t *data, uint16_t size)
 }
 
 // Shift seed
-uint8_t shift_seed(uint16_t *seed)
+uint16_t shift_seed(uint16_t *seed)
 {
     if(*seed == 0)
     {
