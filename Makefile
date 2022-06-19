@@ -4,14 +4,17 @@ LFLAGS	:= -lm
 SRC		:= src
 CFILES	:= $(wildcard $(SRC)/*.c)
 OFILES	:= $(CFILES:.c=.o)
-TARGET	:= libmiigen
+TARGET	:= libmiigen.so
 
 all: $(TARGET)
 
 $(TARGET): $(OFILES)
 	@echo "Linking..."
-	@$(CC) $(OFILES) $(LFLAGS) -o $(TARGET)
+	@$(CC) -shared $(OFILES) $(LFLAGS) -o $(TARGET)
 
 $(SRC)/%.o: $(SRC)/%.c
 	@echo "Compiling object $<..."
 	@$(CC) $(CFLAGS) -c $< -o $@
+
+clean:
+	rm -rf src/*.o *.so *.exe

@@ -185,9 +185,3 @@ mii_gen3_nx_t random_mii_gen3_nx(uint16_t seed)
     printf("%i and %i\n", mii.body_height, test.body_height);
     return mii;
 }
-
-int main(void)
-{
-    random_mii_gen3_nx(0x12345678);
-    return 0;
-}
