@@ -1,6 +1,5 @@
 #include "mii.h"
 
-
 uint8_t gen_crc16(const uint8_t *data, uint16_t size)
 {
     uint8_t out = 0;
@@ -62,10 +61,10 @@ uint16_t shift_seed(uint16_t *seed)
     }
     else
     {
-        printf("shifting seed %x...\n", *seed);
+        printf("libmiigen: shifting seed %x...\n", *seed);
         *seed = time(0) % *seed;
         srand(*seed);
-        printf("done %x.\n", *seed);
+        printf("libmiigen: done %x.\n", *seed);
     }
     return *seed;
 }
@@ -171,8 +170,9 @@ mii_gen3_nx_t random_mii_gen3_nx(uint16_t seed, bool dump, char *fn)
     mii.facial_hair_size = rand() % 8;
     shift_seed(&seed);
     strcpy(mii.mii_name, "Example");
-    mii.checksum_mii[0] = gen_crc16(&mii, sizeof(mii_gen3_nx_t));
-    mii.checksum_console[0] = gen_crc16(&mii, sizeof(mii_gen3_nx_t));
+    mii.mii_id = rand() % UINT8_MAX;
+    mii.checksum_mii = gen_crc16(&mii, sizeof(mii_gen3_nx_t));
+    mii.checksum_console = gen_crc16(&mii, sizeof(mii_gen3_nx_t));
     printf("libmiigen: done generating mii%x.\n", &mii);
     if(dump)
     {

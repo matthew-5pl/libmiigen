@@ -1,5 +1,5 @@
 CC		:= gcc
-CFLAGS	:= -Wall -g -O2
+CFLAGS	:= -Wall -g -O2 -std=c99
 LFLAGS	:= -lm
 SRC		:= src
 CFILES	:= $(wildcard $(SRC)/*.c)
@@ -18,3 +18,6 @@ $(SRC)/%.o: $(SRC)/%.c
 
 clean:
 	rm -rf src/*.o *.so *.exe
+
+cleanall: clean
+	rm -rf *.bin *.ms
